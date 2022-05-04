@@ -1,1 +1,138 @@
-/*# sourceMappingURL=app.css.map */
+:root {
+  --bg-separation: grey;
+  --blue: #006c9b;
+  --green: #81bd40;
+  --light-grey: #e0e1e2;
+  --dark-grey: #36405b;
+  --font-fam-1: "Hind Vadodara", sans-serif;
+  --font-fam-2: "PT Serif", serif;
+  --font-fam-3: "Yantramanav", sans-serif;
+}
+
+body {
+  background: var(--light-grey);
+}
+
+.logo {
+  height: 3.5rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+nav {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 10;
+  top: -0.5rem;
+  width: 100%;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  font-family: var(--font-fam-2);
+  -webkit-backdrop-filter: blur(2.5px);
+          backdrop-filter: blur(2.5px);
+  background: hsla(240deg, 100%, 92%, 0.75);
+}
+nav > ul {
+  width: min(75%, 750px);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+nav > ul > li {
+  cursor: pointer;
+}
+nav .connexion {
+  margin-right: 2rem;
+  font-size: 2rem;
+}
+nav .connexion .connect-txt {
+  font-size: 1rem;
+}
+
+.accueil {
+  position: relative;
+  width: 100%;
+  height: 35vh;
+  background: url(./assets/img/banner.jpg);
+  background-size: cover;
+  color: var(--dark-grey);
+  font-family: arial;
+  text-align: end;
+  line-height: 1.15;
+}
+.accueil .identity {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 25vh;
+  width: 60vw;
+}
+.accueil h1 {
+  font-size: min(5.25rem, 8.75vw);
+  font-family: var(--font-fam-1);
+}
+.accueil h2 {
+  font-size: min(2.25rem, 3.75vw);
+  font-family: var(--font-fam-2);
+}
+
+section {
+  position: relative;
+  width: 90vw;
+  min-height: 45vh;
+  margin: 4rem auto;
+  border: 0.25rem solid var(--blue);
+  border-radius: 0.25rem;
+}
+section .section-title {
+  font-family: var(--font-fam-2);
+  font-size: 1.5rem;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  left: 2rem;
+  top: -2rem;
+  background: var(--light-grey);
+  width: auto;
+}
+section .section-title .logo {
+  padding-right: 0.5rem;
+}
+
+.presentation .id-picture {
+  height: 45vh;
+  width: auto;
+  position: absolute;
+  bottom: 0;
+  right: 0.5rem;
+}
+
+.separation {
+  width: 90vw;
+  height: 15vh;
+  background: var(--bg-separation);
+  background-size: cover;
+  background-attachment: fixed;
+  margin: auto;
+}
+
+.separation-1 {
+  --bg-separation: url("./assets/img/beautiful-shot-of-stack-of-rocks-on-the-beach.jpg");
+}
+
+.separation-2 {
+  --bg-separation: url("./assets/img/physiotherapist-performing-therapeutic-massage-on-male-client.jpg");
+}
+
+.separation-3 {
+  --bg-separation: url("./assets/img/making-massage-of-child-s-foot.jpg");
+}/*# sourceMappingURL=app.css.map */
