@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react'
+import useWindowSize from './components/useWindowSize'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserDoctor } from '@fortawesome/free-solid-svg-icons'
+import { faAt, faClock, faLocationDot, faPhone, faUserDoctor } from '@fortawesome/free-solid-svg-icons'
 
 import './app.css'
 
@@ -15,15 +17,45 @@ import idPhoto from './assets/img/id-photo.png'
 
 function App() {
 
+  const [orientation, setOrientation] = useState('landscape')
+
+  const size = useWindowSize()
+
+  
+  useEffect(() => {
+    console.log('orientation', orientation)
+    myOrientation()
+  }, [size])
+
+  const myOrientation = () => {
+    size.height < size.width ? setOrientation('landscape') : setOrientation('portrait')
+  }
+
   const handleScroll = (target) => {
     target.scrollIntoView({ behavior: "smooth" })
     console.log(target)
   }
 
+  const handleToggleMenu = () => {
+    document.querySelector('.navigation-hidden').classList.toggle('navigation-displayed')
+    document.querySelector('.burger').classList.toggle('open')
+
+  }
+
+
   return (
     <div className="App">
 
-      <nav>
+
+      {orientation === 'portrait' &&
+        <div className="burger-container"
+        onClick = {handleToggleMenu}>
+          <div className="burger">
+          </div>
+        </div>
+      }
+
+      <nav className={orientation === 'landscape' ? 'navigation-shown' : 'navigation-hidden'}>
         <img src={logo1} alt="logo" className="logo" />
         <ul>
           <li onClick={() => handleScroll(document.querySelector('.App'))}>Accueil</li>
@@ -32,8 +64,8 @@ function App() {
           <li onClick={() => handleScroll(document.querySelector('.separation-3'))}>contact</li>
         </ul>
         <div className="connexion">
-          <FontAwesomeIcon icon={faUserDoctor} />
-          <span className="connect-txt">connexion</span>
+          {/* <FontAwesomeIcon icon={faUserDoctor} />
+          <span className="connect-txt">connexion</span> */}
         </div>
       </nav>
 
@@ -41,40 +73,107 @@ function App() {
         <div className="identity">
           <h1>Marie Imbault</h1>
           <h2>Masseur kinésithérapeute</h2>
-          </div>
+          <h2>Périnéologie</h2>
+        </div>
       </div>
 
       <main>
 
         <section className="presentation">
+
           <div className="section-title">
             <img src={logo2} alt="logo" className="logo" />
             présentation
           </div>
-          <article className="presentation-content">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga aliquid impedit accusamus alias possimus placeat enim exercitationem, suscipit eos quo dolor nihil maxime provident, sunt repudiandae explicabo recusandae a maiores mollitia neque officia. Possimus, fugiat ratione. Necessitatibus soluta quos nisi tenetur animi numquam voluptatem aperiam quisquam iure nulla modi, nesciunt voluptas ratione magnam repellendus quis illo! Adipisci recusandae magnam impedit odit voluptatibus in velit rerum vero, nihil ipsa atque doloribus explicabo magni voluptatum animi assumenda sint ipsam molestias, temporibus, modi optio dolore asperiores sunt facere? Vel in numquam, ducimus harum minus eligendi dolorem tempore unde, odit consectetur ex, et itaque impedit porro voluptates obcaecati. Iste molestiae accusamus odit sit maiores tempore sapiente officia, cupiditate ipsum ab in pariatur quasi at rerum blanditiis magni perferendis dolorum et esse. Aut voluptas praesentium nemo nihil enim est ratione culpa ex distinctio quis, suscipit, quas libero qui repellendus. Iure consequuntur tempora possimus harum quae nam odio exercitationem velit, obcaecati reiciendis! Facere illum quidem et minima voluptatum cupiditate similique eveniet! Cumque repudiandae delectus, veritatis praesentium repellendus velit adipisci maiores ex recusandae architecto assumenda illum ea natus a provident esse accusamus dicta asperiores non vero molestiae laborum. Rem, non! Voluptatum possimus quibusdam aspernatur praesentium vitae, ut velit repellat unde expedita placeat illo maxime, sunt similique eum reiciendis dolorum? Quisquam maxime provident deserunt quod voluptates quos quia temporibus, tempora necessitatibus velit commodi sapiente placeat. Perspiciatis quia iste ad nulla nihil voluptatum qui minima ea iure quae nisi sint architecto officia illo neque quas quibusdam excepturi laborum officiis assumenda odit, soluta maiores error. Similique eaque perferendis illo! Nesciunt tempore inventore sunt modi fugit voluptate. Cumque rerum eligendi odit iusto? Perspiciatis sunt neque ratione delectus quaerat. Veniam cupiditate, in provident quia maiores est rem assumenda pariatur, vitae quod eligendi consequatur explicabo expedita laboriosam inventore quisquam ipsa repudiandae reprehenderit sed praesentium quas blanditiis, amet unde? Eos perspiciatis illum similique placeat odio laborum sit delectus obcaecati animi expedita aspernatur, quisquam hic corporis tenetur mollitia alias, earum recusandae possimus pariatur exercitationem officiis quod quas maiores est! Atque, illum aperiam eveniet dolores inventore quis doloremque facilis temporibus consequuntur quia pariatur, voluptatem vitae nemo non. Veniam eos magnam quia assumenda consectetur nesciunt repudiandae culpa alias nobis. Quos omnis dolorem corrupti eaque quibusdam enim culpa quasi magni sit necessitatibus voluptatibus, cupiditate, quaerat adipisci deserunt non, voluptatum ipsum accusamus doloribus vel? Quibusdam, sint totam. Voluptate earum sequi ullam, natus eos unde numquam ex, doloribus provident enim placeat veniam? Doloribus ex dolorum cum tempore possimus culpa nesciunt? Voluptas laudantium quasi numquam, voluptatem tempore dignissimos ullam asperiores repellendus culpa fugiat id fugit ipsam ut impedit, pariatur commodi, consequatur ducimus debitis eaque? Quam placeat aliquid ducimus exercitationem ipsum neque pariatur. Sapiente aliquid eius repellendus quae quis sunt reprehenderit aliquam ullam accusamus magni nam ducimus numquam nisi recusandae voluptas animi autem ab laborum ut rem at esse expedita, distinctio saepe. Dolorem, accusamus. Numquam corrupti sapiente eaque sequi, enim soluta velit id facilis dolorem officia. Expedita consequatur suscipit hic quae laudantium non aliquid eaque eius, nemo repudiandae temporibus quibusdam similique odio soluta in possimus quam quod. Laborum odio praesentium dolore, exercitationem tempore natus. Similique voluptatem necessitatibus eum. At, vitae quos itaque voluptas ipsa, temporibus, soluta iste provident inventore nesciunt corrupti nemo blanditiis! Modi reprehenderit sit facilis praesentium ipsa magnam! Minima velit nostrum veniam quidem doloribus atque? 
-          </article>
-          
-          <img src={idPhoto} alt="photo de Marie Imbault" className='id-picture'/>
+
+          <div className="presentation-content">
+            <span className="quotation-mark"> “ </span>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis quae, est illo odio mollitia, ullam repellendus accusamus, incidunt nemo similique nihil sint dolorum possimus dolore natus nam quas nostrum dolorem. <span className="quotation-mark"> ” </span>
+          </div>
+
+          <img src={idPhoto} alt="photo de Marie Imbault" className='id-picture' />
 
         </section>
 
         <div className="separation separation-1"></div>
 
-        <section className="soins-conv">
+        <section className="soins-conv soins">
+
           <div className="section-title">
             <img src={logo3} alt="logo" className="logo" />
             soins conventionnés
           </div>
+
+          <div className="soin">
+            <div className="soin-title">
+              nom du soin
+            </div>
+            <div className="soin-description">
+              description du soin : <br />
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quis exercitationem ducimus quos animi obcaecati odio!
+            </div>
+          </div>
+
+          <div className="soin">
+            <div className="soin-title">
+              nom du soin
+            </div>
+            <div className="soin-description">
+              description du soin <br />
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem commodi aut mollitia dolorum dolore quia nam, quam, iure architecto ipsum assumenda voluptate.
+            </div>
+          </div>
+
+          <div className="soin">
+            <div className="soin-title">
+              nom du soin
+            </div>
+            <div className="soin-description">
+              description du soin<br />
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus distinctio tempora mollitia.
+            </div>
+          </div>
+
         </section>
 
         <div className="separation separation-2"></div>
 
-        <section className="soins-non-conv">
+        <section className="soins-non-conv soins">
           <div className="section-title">
             <img src={logo4} alt="logo" className="logo" />
             soins non conventionnés
           </div>
+
+          <div className="soin">
+            <div className="soin-title">
+              nom du soin
+            </div>
+            <div className="soin-description">
+              description du soin <br />
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero accusantium sequi doloribus quia mollitia perferendis, consectetur exercitationem, in autem, eius cupiditate tempora. Harum ipsam eaque est velit maiores soluta doloribus recusandae ut!
+            </div>
+          </div>
+
+          <div className="soin">
+            <div className="soin-title">
+              nom du soin
+            </div>
+            <div className="soin-description">
+              description du soin <br />
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora sequi voluptate eveniet nulla libero cumque ab nam veritatis laudantium eos. Magnam qui architecto sequi consequuntur vel!
+            </div>
+          </div>
+
+          <div className="soin">
+            <div className="soin-title">
+              nom du soin
+            </div>
+            <div className="soin-description">
+              description du soin <br />
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat ullam voluptatum molestias ea. Id tempore doloremque rem harum facilis voluptates saepe dicta in ratione. Corrupti cumque possimus laudantium sequi illum illo, repellat, architecto quae libero omnis sunt voluptatem, molestias excepturi.
+            </div>
+          </div>
+
         </section>
 
         <div className="separation separation-3"></div>
@@ -84,14 +183,57 @@ function App() {
             <img src={logo5} alt="logo" className="logo" />
             contact
           </div>
+
+          <div className="contact-infos">
+
+            <div className='info'>
+              <span className="font-awesome-icon">
+                <FontAwesomeIcon icon={faClock} />
+              </span>
+              Lundi : 10h - 19h <br />
+              Mardi : 10h - 21h <br />
+              Mercredi : 10h - 19h <br />
+              Vendredi : 10h - 21h
+            </div>
+            <div className='info'>
+              <span className="font-awesome-icon">
+                <FontAwesomeIcon icon={faLocationDot} />
+              </span>
+              1 Route de Saint Pey d'Armens, 33350 Sainte-Terre
+            </div>
+
+            <div className='info'>
+              <span className="font-awesome-icon">
+                <FontAwesomeIcon icon={faPhone} />
+              </span>
+              07 83 38 96 65 / 05 57 40 16 34
+            </div>
+
+            <div className='info'>
+              <span className="font-awesome-icon">
+                <FontAwesomeIcon icon={faAt} />
+              </span>
+              imbault.marie@gmail.com
+            </div>
+
+          </div>
+
+
         </section>
-
-
-        <div className="separation separation-4"></div>
 
       </main>
 
-      <footer>footer</footer>
+      <footer>
+        <div className='footer-top'>
+          <img src={logo1} alt="logo" className="logo" /> Marie Imbault - Masseur Kinésithérapeute, Périnéologie.
+        </div>
+        <hr />
+        <div className='footer-bottom'>
+          <div>Réalisation et référencement: <a href="www.maxime-malfilatre.com" target="_blank" rel='noopener noreferrer'>Maxime Malfilâtre</a></div>
+          <div>Mentions légales</div>
+          <div>connexion</div>
+        </div>
+      </footer>
     </div>
   );
 }
