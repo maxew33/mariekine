@@ -9,302 +9,57 @@
   --font-fam-3: "Yantramanav", sans-serif;
   --angle-rotation: 0deg;
   --translate-value: 0px;
+  --scale-value: 0;
 }
 
 body {
   background: var(--light-grey);
   font-family: var(--font-fam-3);
+  overflow-x: hidden;
 }
 
-.logo {
-  height: 3.5rem;
-  -o-object-fit: contain;
-     object-fit: contain;
-}
-
-/* menu */
-.navigation-shown {
-  position: -webkit-sticky;
-  position: sticky;
-  z-index: 10;
-  top: -0.5rem;
-  width: 100%;
-  height: 3.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 0;
-  font-family: var(--font-fam-2);
-  font-size: 1.15rem;
-  -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
-  background: hsla(198deg, 100%, 30%, 0.05);
-}
-.navigation-shown .logo {
-  margin-left: 1.5rem;
-}
-.navigation-shown > ul {
-  width: min(75%, 750px);
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-.navigation-shown > ul > li {
-  cursor: pointer;
-}
-.navigation-shown .connexion {
-  margin-right: 2rem;
-  font-size: 2rem;
-}
-.navigation-shown .connexion .connect-txt {
-  font-size: 1rem;
-}
-
-.burger-container {
-  position: fixed;
-  height: 60px;
-  width: 60px;
-  cursor: pointer;
-  z-index: 20;
-  display: grid;
-  place-content: center;
-}
-
-.burger {
-  position: relative;
-  background: var(--green);
-}
-
-.burger,
-.burger::after,
-.burger::before {
-  width: 50px;
-  height: 6px;
-  border-radius: 5px;
-  transition: transform 0.25s ease-in, background-color 0.25s ease-in-out;
-}
-
-.burger::after,
-.burger::before {
-  content: "";
+.transition {
   position: absolute;
-  background: var(--green);
+  display: none;
+  width: 100vw;
+  background: var(--blue);
+  -webkit-animation: translation 0.5s linear forwards;
+          animation: translation 0.5s linear forwards;
+  z-index: 100;
 }
 
-.burger::before {
-  top: -12.5px;
-  transform: translateY(var(--translate-value)) rotate(var(--angle-rotation));
-}
-
-.burger::after {
-  top: 12.5px;
-  transform: translateY(calc(var(--translate-value) * -1)) rotate(calc(var(--angle-rotation) * -1));
-}
-
-.open {
-  --angle-rotation: 135deg;
-  --translate-value: 12.5px;
-  background: rgba(217, 217, 217, 0);
-}
-
-.navigation-hidden {
-  color: whitesmoke;
-  position: fixed;
-  z-index: 10;
-  height: 100vh;
-  width: 50vw;
-  left: -50vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: var(--font-fam-2);
-  font-size: 1.5rem;
-  -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
-  background: hsla(224deg, 26%, 28%, 0.75);
-  transition: transform 0.5s ease-in-out;
-}
-.navigation-hidden .logo {
-  margin-top: 5rem;
-  width: 10vw;
-  height: auto;
-}
-.navigation-hidden > ul {
-  line-height: 2.5;
-  width: min(75%, 750px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-around;
-}
-.navigation-hidden > ul > li {
-  cursor: pointer;
-}
-.navigation-hidden .connexion {
-  margin-right: 2rem;
-  font-size: 2rem;
-}
-.navigation-hidden .connexion .connect-txt {
-  font-size: 1rem;
-}
-
-.navigation-displayed {
-  transform: translateX(50vw);
-}
-
-.accueil {
+.header {
   position: relative;
   width: 100%;
   height: 35vh;
   background: url(./assets/img/banner.jpg);
   background-size: cover;
-  color: var(--dark-grey);
-  line-height: 1.15;
 }
-.accueil .identity {
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  height: 25vh;
-  width: 60vw;
-}
-.accueil h1 {
-  font-size: min(5.25rem, 8.75vw);
+
+.centered-header {
+  display: grid;
+  place-content: center;
+  font-size: min(5.25rem, 9.5vw);
   font-family: var(--font-fam-1);
 }
-.accueil h2 {
-  font-size: min(2.25rem, 3.75vw);
-  font-family: var(--font-fam-2);
+
+@-webkit-keyframes translation {
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(-100vw);
+  }
 }
 
-section {
-  position: relative;
-  width: min(1400px, 90vw);
-  margin: 4rem auto;
-  display: flex;
-  justify-content: space-around;
-  border: 0.25rem solid var(--blue);
-  border-radius: 0.25rem;
+@keyframes translation {
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(-100vw);
+  }
 }
-section .section-title {
-  font-family: var(--font-fam-2);
-  font-size: 1.75rem;
-  position: absolute;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 1rem;
-  left: 2rem;
-  top: -2rem;
-  background: var(--light-grey);
-  width: auto;
-}
-section .section-title .logo {
-  padding-right: 0.5rem;
-}
-
-.presentation .presentation-content {
-  font-size: 1.5rem;
-  max-width: 75%;
-  align-self: center;
-  line-height: 1.25;
-  padding: 2rem 0.5rem;
-}
-.presentation .presentation-content .quotation-mark {
-  font-size: 1.75rem;
-  color: var(--green);
-  font-weight: bolder;
-}
-.presentation .id-picture {
-  min-height: 75%;
-  width: auto;
-  max-width: 40%;
-  height: auto;
-  -o-object-fit: contain;
-     object-fit: contain;
-  align-self: flex-end;
-}
-
-.soins {
-  flex-wrap: wrap;
-}
-.soins .soin {
-  width: 40%;
-  margin: 2.5rem 0;
-  background: whitesmoke;
-  border-radius: 0.25rem;
-}
-.soins .soin .soin-title {
-  padding: 0.5rem;
-  font-size: 1.25rem;
-  position: relative;
-  background: var(--green);
-  text-align: center;
-  color: var(--light-grey);
-}
-.soins .soin .soin-title::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -0.5rem;
-  border-top: 0.5rem solid var(--green);
-  border-left: 0.5rem solid transparent;
-  border-right: 0.5rem solid transparent;
-}
-.soins .soin .soin-description {
-  padding: 0.5rem;
-  font-size: 1.15rem;
-  line-height: 1.15;
-}
-
-.contact {
-  font-size: 1.25rem;
-}
-.contact .contact-infos {
-  width: 90%;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0.5rem;
-  margin-top: 2rem;
-  line-height: 1.5;
-}
-.contact .contact-infos .info {
-  width: 45%;
-  padding: 0.5rem;
-}
-.contact .contact-infos .font-awesome-icon {
-  color: var(--green);
-  padding-right: 0.5rem;
-}
-
-.separation {
-  width: min(1400px, 90vw);
-  height: 17.5vh;
-  background: var(--bg-separation);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: bottom;
-  margin: auto;
-}
-
-.separation-1 {
-  --bg-separation: url("./assets/img/illus-kine-paysage-1.jpg");
-}
-
-.separation-2 {
-  --bg-separation: url("./assets/img/illus-kine-paysage-2.jpg");
-}
-
-.separation-3 {
-  --bg-separation: url("./assets/img/illus-kine-paysage-3.jpg");
-}
-
 footer {
   padding: 1.5rem 10rem;
   background: hsla(198deg, 100%, 30%, 0.05);
@@ -319,6 +74,9 @@ footer .footer-top {
 }
 footer .footer-top .logo {
   margin-right: 0.5rem;
+}
+footer .components-link {
+  cursor: pointer;
 }
 footer .footer-bottom {
   display: flex;
@@ -337,63 +95,18 @@ footer .footer-bottom div a:visited {
   color: black;
 }
 
+.exit-cross {
+  position: absolute;
+  font-size: 2rem;
+  top: 5vmin;
+  right: 5vmin;
+  z-index: 50;
+  cursor: pointer;
+}
+
 @media (orientation: portrait) {
-  .accueil {
+  .header {
     height: 25vh;
-  }
-  .accueil .identity {
-    height: 15vh;
-  }
-  .accueil h1 {
-    font-size: min(5.25rem, 9.5vw);
-    font-family: var(--font-fam-1);
-  }
-  .accueil h2 {
-    font-size: min(2.25rem, 4.5vw);
-    font-family: var(--font-fam-2);
-  }
-
-  section .section-title {
-    font-size: 1rem;
-  }
-
-  .presentation {
-    display: flex;
-    flex-direction: column;
-  }
-  .presentation .presentation-content {
-    max-width: 95%;
-    padding: 2rem 0 0 0;
-  }
-
-  .soins {
-    flex-wrap: wrap;
-  }
-  .soins .soin {
-    width: 90%;
-    margin: 1rem 0 0 0;
-  }
-  .soins .soin:nth-child(2) {
-    margin-top: 2.5rem;
-  }
-
-  .contact {
-    font-size: 1rem;
-  }
-  .contact .contact-infos .info {
-    width: 100%;
-  }
-
-  .separation-1 {
-    --bg-separation: url("./assets/img/illus-kine-portrait-1.jpg");
-  }
-
-  .separation-2 {
-    --bg-separation: url("./assets/img/illus-kine-portrait-2.jpg");
-  }
-
-  .separation-3 {
-    --bg-separation: url("./assets/img/illus-kine-portrait-3.jpg");
   }
 
   footer {
