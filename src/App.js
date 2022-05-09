@@ -1,4 +1,8 @@
 import { useState, useEffect } from 'react'
+
+import { db } from './firebaseConfig'
+import { collection, getDocs } from 'firebase/firestore'
+
 import useWindowSize from './components/useWindowSize'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -17,19 +21,64 @@ function App() {
   const [transition, setTransition] = useState(false)
   const [transitionHeight, setTransitionHeight] = useState(0)
 
+  //from the db
+  const [soinsConv, setSoinsConv] = useState([])
+  const [soinsNonConv, setSoinsNonConv] = useState([])
+  const [contactInfos, setContactInfos] = useState([])
+  const [myPresentation, setMyPresentation] = useState([])
+  const [myDatabase, setMyDatabase] = useState([])
+
 
   const [orientation, setOrientation] = useState('landscape')
   const size = useWindowSize()
 
   const myComponents = [<Main orientation={orientation} />, <LegalNotice />, <Administration />]
 
+  const databaseRef = ['contact', 'presentation', 'soins-conventionnels', 'soins-non-conventionnels']
 
+  // const colRef = collection(db, 'websiteData')
+
+
+  useEffect(() => {
+
+    databaseRef.forEach(dbref => {
+      const colRef = collection(db, dbref)
+      console.log(dbref)
+      getDocs(colRef)
+        .then(snapshot => {
+          let myCollection = []
+          snapshot.docs.forEach(doc => {
+            myCollection.push({ ...doc.data(), id: doc.id })
+          })
+
+          let myNewdb = myDatabase
+          myNewdb.push(myCollection)
+          console.log(myCollection)
+          setMyDatabase(myNewdb)
+        })
+        .catch(err => console.error(err))
+    })
+    /*
+      getDocs(colRef)
+      .then(snapshot => {
+        let myCollection = []
+          snapshot.docs.forEach(doc => {
+            myCollection.push({...doc.data(), id: doc.id})
+          })
+        
+        console.log(myCollection)
+        setMyDbContent([...myCollection])
+      })
+      .catch(err => console.error(err))
+      */
+  }, [])
 
   useEffect(() => {
     console.log('orientation', orientation)
     setTransitionHeight(document.body.clientHeight)
     console.log(document.body.clientHeight)
     myOrientation()
+    console.log('db : ' ,myDatabase)
   }, [size])
 
 
