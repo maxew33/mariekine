@@ -21,56 +21,42 @@ function App() {
   const [transition, setTransition] = useState(false)
   const [transitionHeight, setTransitionHeight] = useState(0)
 
-  //from the db
-  const [soinsConv, setSoinsConv] = useState([])
-  const [soinsNonConv, setSoinsNonConv] = useState([])
-  const [contactInfos, setContactInfos] = useState([])
-  const [myPresentation, setMyPresentation] = useState([])
-  const [myDatabase, setMyDatabase] = useState([])
+  //for the db
+  const [isLoading, setIsLoading] = useState(true)
+  const [myDatabase, setMyDatabase] = useState({})
 
 
   const [orientation, setOrientation] = useState('landscape')
   const size = useWindowSize()
 
-  const myComponents = [<Main orientation={orientation} />, <LegalNotice />, <Administration />]
+  const myComponents = [<Main orientation={orientation} database={myDatabase} />, <LegalNotice />, <Administration database={myDatabase} />]
 
-  const databaseRef = ['contact', 'presentation', 'soins-conventionnels', 'soins-non-conventionnels']
-
-  // const colRef = collection(db, 'websiteData')
-
+  const databaseRef = ['contact', 'presentation', 'soinsConventionnels', 'soinsNonConventionnels']
 
   useEffect(() => {
 
-    databaseRef.forEach(dbref => {
-      const colRef = collection(db, dbref)
-      console.log(dbref)
-      getDocs(colRef)
-        .then(snapshot => {
-          let myCollection = []
-          snapshot.docs.forEach(doc => {
-            myCollection.push({ ...doc.data(), id: doc.id })
-          })
-
-          let myNewdb = myDatabase
-          myNewdb.push(myCollection)
-          console.log(myCollection)
-          setMyDatabase(myNewdb)
+        databaseRef.forEach((dbref, idx) => {
+          const colRef = collection(db, dbref)
+          
+          getDocs(colRef)
+            .then(snapshot => {
+              let myCollection = {}
+  
+              snapshot.docs.forEach(doc => {
+                myCollection[doc.id] = { ...doc.data() }
+              })
+  
+              let myNewDatabase = myDatabase
+  
+              myNewDatabase[dbref] = myCollection
+  
+              setMyDatabase(myNewDatabase)              
+                
+            })
+            .then(()=>((idx+1) === databaseRef.length && setIsLoading(false)))
+            .catch(err => console.error(err))
         })
-        .catch(err => console.error(err))
-    })
-    /*
-      getDocs(colRef)
-      .then(snapshot => {
-        let myCollection = []
-          snapshot.docs.forEach(doc => {
-            myCollection.push({...doc.data(), id: doc.id})
-          })
         
-        console.log(myCollection)
-        setMyDbContent([...myCollection])
-      })
-      .catch(err => console.error(err))
-      */
   }, [])
 
   useEffect(() => {
@@ -78,7 +64,7 @@ function App() {
     setTransitionHeight(document.body.clientHeight)
     console.log(document.body.clientHeight)
     myOrientation()
-    console.log('db : ' ,myDatabase)
+    console.log('db : ', myDatabase)
   }, [size])
 
 
@@ -106,7 +92,7 @@ function App() {
 
       {componentDisplayed > 0 && <div className='exit-cross' onClick={() => handleDisplay(0)}> <FontAwesomeIcon icon={faCircleXmark} /></div>}
 
-      {myComponents[componentDisplayed]}
+      {!isLoading && myComponents[componentDisplayed]}
 
       <footer>
         <div className='footer-top'>

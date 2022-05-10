@@ -13,7 +13,7 @@ import idPhoto from '../assets/img/id-photo.png'
 
 import '../style/main.css'
 
-export default function Main({ orientation }) {
+export default function Main({ orientation, database }) {
 
     // INTERSECTION OBSERVER //
 
@@ -106,7 +106,7 @@ export default function Main({ orientation }) {
 
                     <div className="presentation-content">
                         <span className="quotation-mark"> “ </span>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis quae, est illo odio mollitia, ullam repellendus accusamus, incidunt nemo similique nihil sint dolorum possimus dolore natus nam quas nostrum dolorem. <span className="quotation-mark"> ” </span>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis quae, est illo odio mollitia, ullam repellendus accusamus, incidunt nemo similique nihil sint dolorum possimus dolore natus nam quas nostrum dolorem. {database.presentation.texte.presentation}<span className="quotation-mark"> ” </span>
                     </div>
 
                     <img src={idPhoto} alt="photo de Marie Imbault" className='id-picture' />
