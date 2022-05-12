@@ -19,9 +19,10 @@ body {
 }
 
 .transition {
-  position: absolute;
+  position: fixed;
   display: none;
   width: 100vw;
+  height: 100vh;
   background: var(--blue);
   -webkit-animation: translation 0.5s linear forwards;
           animation: translation 0.5s linear forwards;
@@ -79,7 +80,8 @@ footer .components-link {
   cursor: pointer;
 }
 footer .footer-bottom {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
   justify-content: space-between;
   font-size: 0.8rem;

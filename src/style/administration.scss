@@ -1,4 +1,4 @@
-.administration{
+.administration {
     position: absolute;
     background: red;
     height: 100vh;
@@ -6,4 +6,83 @@
     display: grid;
     place-content: center;
     z-index: 50;
+}
+
+.checkbox-hidden {
+    display: none;
+}
+
+.add-item {
+    position: relative;
+    width: 90%;
+    margin-top: 2.5rem;
+    padding: 0.5rem;
+    background: var(--blue);
+    color: var(--light-grey);
+    font-size: 1.25rem;
+    text-align: center;
+    cursor: pointer;
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -0.5rem;
+        border-top: 0.5rem solid var(--blue);
+        border-left: 0.5rem solid transparent;
+        border-right: 0.5rem solid transparent;
+    }
+}
+
+.checkbox-hidden:checked ~ .item-infos-inputs {
+    display: block;
+}
+
+.item-infos-inputs {
+    position: relative;
+    width: 90%;
+    display: none;
+    bottom: 0;
+    left: 0;
+    color: black;
+    animation: displaying 0.5s ease-in-out forwards;
+
+    .item-infos-name {
+        width: 90%;
+    }
+
+    .item-infos-descr {
+        width: 90%;
+        height: 15vh;
+    }
+}
+
+@keyframes displaying {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.item-infos-inputs {
+    label {
+        font-family: var(--font-fam-2);
+        font-size: 0.9rem;
+        padding: 0.5vw;
+        position: absolute;
+        left: 0;
+        transition: all 0.25s ease;
+        pointer-events: none;
+    }
+
+    input:focus ~ label,
+    textarea:focus ~ label,
+    input:valid ~ label,
+    textarea:valid ~ label {
+        font-size: 0.5rem;
+        padding: 0rem;
+    }
 }

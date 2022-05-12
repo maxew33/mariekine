@@ -9,7 +9,7 @@ import logo3 from '../assets/logos/logo-3.png'
 import logo4 from '../assets/logos/logo-4.png'
 import logo5 from '../assets/logos/logo-5.png'
 
-import idPhoto from '../assets/img/id-photo.png'
+import idPhoto from '../assets/img/id-photo-3.png'
 
 import '../style/main.css'
 
@@ -89,9 +89,9 @@ export default function Main({ orientation, database }) {
 
             <div className="nav-target header" data-id='0'>
                 <div className="identity">
-                    <h1>Marie Imbault</h1>
+                    <h1>Jane Doe</h1>
                     <h2>Masseur kinésithérapeute</h2>
-                    <h2>Périnéologie</h2>
+                    {/* <h2>Périnéologie</h2> */}
                 </div>
             </div>
 
@@ -217,21 +217,21 @@ export default function Main({ orientation, database }) {
                             <span className="font-awesome-icon">
                                 <FontAwesomeIcon icon={faLocationDot} />
                             </span>
-                            1 Route de Saint Pey d'Armens, 33350 Sainte-Terre
+                            1 Route de Lorem, 33000 Ipsum
                         </div>
 
                         <div className='info'>
                             <span className="font-awesome-icon">
                                 <FontAwesomeIcon icon={faPhone} />
                             </span>
-                            07 83 xx xx xx / 05 57 xx xx xx
+                            555 xx xx xx / 555 xx xx xx
                         </div>
 
                         <div className='info'>
                             <span className="font-awesome-icon">
                                 <FontAwesomeIcon icon={faAt} />
                             </span>
-                            imbault.marie@xxxx.com
+                            jane.doe@xxxx.com
                         </div>
 
                     </div>

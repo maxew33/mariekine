@@ -22,10 +22,10 @@ body {
 }
 
 .transition{
-    position: absolute;
+    position: fixed;
     display: none;
     width: 100vw;
-    // height: 100%;
+    height: 100vh;
     background: var(--blue);
     animation: translation .5s linear forwards;
     z-index: 100;
@@ -78,7 +78,8 @@ footer {
     }
 
     .footer-bottom {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         align-items: center;
         justify-content: space-between;
         font-size: 0.8rem;

@@ -19,8 +19,6 @@ function App() {
 
   const [componentDisplayed, setComponentDisplayed] = useState(2)
   const [transition, setTransition] = useState(false)
-  const [transitionHeight, setTransitionHeight] = useState(0)
-
   //for the db
   const [isLoading, setIsLoading] = useState(true)
   const [myDatabase, setMyDatabase] = useState({})
@@ -35,34 +33,31 @@ function App() {
 
   useEffect(() => {
 
-        databaseRef.forEach((dbref, idx) => {
-          const colRef = collection(db, dbref)
-          
-          getDocs(colRef)
-            .then(snapshot => {
-              let myCollection = {}
-  
-              snapshot.docs.forEach(doc => {
-                myCollection[doc.id] = { ...doc.data() }
-              })
-  
-              let myNewDatabase = myDatabase
-  
-              myNewDatabase[dbref] = myCollection
-  
-              setMyDatabase(myNewDatabase)              
-                
-            })
-            .then(()=>((idx+1) === databaseRef.length && setIsLoading(false)))
-            .catch(err => console.error(err))
+    databaseRef.forEach((dbref, idx) => {
+      const colRef = collection(db, dbref)
+
+      getDocs(colRef)
+        .then(snapshot => {
+          let myCollection = {}
+
+          snapshot.docs.forEach(doc => {
+            myCollection[doc.id] = { ...doc.data() }
+          })
+
+          let myNewDatabase = myDatabase
+
+          myNewDatabase[dbref] = myCollection
+
+          setMyDatabase(myNewDatabase)
+
         })
-        
+        .then(() => ((idx + 1) === databaseRef.length && setIsLoading(false)))
+        .catch(err => console.error(err))
+    })
+
   }, [])
 
   useEffect(() => {
-    console.log('orientation', orientation)
-    setTransitionHeight(document.body.clientHeight)
-    console.log(document.body.clientHeight)
     myOrientation()
     console.log('db : ', myDatabase)
   }, [size])
@@ -73,16 +68,18 @@ function App() {
   }
 
   const handleDisplay = (rank) => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    
     setTransition(true)
-    setTimeout(() => setComponentDisplayed(rank), 200)
+
+    setTimeout(() => {
+      window.scrollTo({ top: 0 })
+      setComponentDisplayed(rank)
+    }
+      , 200)
     setTimeout(() => setTransition(false), 500)
   }
 
-  const transitionStyle = { display: transition ? 'block' : 'none', height: transitionHeight }
+  const transitionStyle = { display: transition ? 'block' : 'none' }
 
 
   return (
@@ -96,13 +93,14 @@ function App() {
 
       <footer>
         <div className='footer-top'>
-          <img src={logo1} alt="logo" className="logo" /> Marie Imbault - Masseur Kinésithérapeute, Périnéologie.
+          <img src={logo1} alt="logo" className="logo" /> Jane Doe - Masseur Kinésithérapeute.
         </div>
         <hr />
         <div className='footer-bottom'>
           <div>Réalisation et référencement: <a href="www.maxime-malfilatre.com" target="_blank" rel='noopener noreferrer'>Maxime Malfilâtre</a></div>
-          <div className='components-link' onClick={() => handleDisplay(1)}>Mentions légales</div>
-          <div className='components-link' onClick={() => handleDisplay(2)}>connexion</div>
+          {componentDisplayed !== 1 && <div className='components-link' onClick={() => handleDisplay(1)}>Mentions légales</div>}
+          
+          {componentDisplayed !== 2 && <div className='components-link' onClick={() => handleDisplay(2)}>connexion</div>}
         </div>
       </footer>
     </div>
